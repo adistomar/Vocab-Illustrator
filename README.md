@@ -1,3 +1,3 @@
 # LancerHacksProject2022
 
-Handwriting help app.
+Vocab memory app.
