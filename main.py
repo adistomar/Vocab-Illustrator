@@ -15,7 +15,7 @@ with open('words.csv') as csv_file:
       words.append(row[1])
       PoS.append(row[2])
       defs.append(row[3])
-      examples.append(row[4])
+      examples.append(((((row[4].replace("\u2018", "'")).replace("\u2019", "'")).replace("\u201c", '"')).replace("\u201d", '"')).replace("\n", ""))
 
 def returnWord():
    global words
@@ -46,7 +46,7 @@ def getWord(word):
       PoS = list(definition.keys())[0].lower()
       definition = list(definition.items())[0][1][0]
       try:
-         example = soup.find(class_="example").get_text().replace("\n", "")
+         example = (((((soup.find(class_="example").get_text().replace("\u2018", "'")).replace("\u2019", "'")).replace("\u201c", '"')).replace("\u201d", '"')).replace("\n", "")).strip('"')
       except:
          example = ""
    except:

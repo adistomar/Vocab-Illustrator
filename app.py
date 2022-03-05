@@ -13,11 +13,11 @@ def index():
 def getRandomWord():
     return jsonify(returnWord())
 
-@app.route('/getWordFromInput', methods=['GET'])
+@app.route('/getWordFromInput/<word>', methods=['GET'])
 def getWordFromInput(word):
     return jsonify(getWord(word))
 
-@app.route('/getWordFromImg', methods=['GET'])
+@app.route('/getWordFromImg/<address>', methods=['POST'])
 def getWordFromImg(address):
    return jsonify(getWord(SimpleHTR.src.main.main(address)))
 
