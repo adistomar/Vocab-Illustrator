@@ -25,7 +25,13 @@ def returnWord():
 
    word = str(random.choice(words))
    word_index = words.index(word)
-   return (word, PoS[word_index], defs[word_index], examples[word_index])
+   wordObject = {
+      "word": word,
+      "PoS": PoS[word_index],
+      "definition": defs[word_index],
+      "example": examples[word_index]
+   }
+   return wordObject
 
 def getWord(word):
    word = str(word)
@@ -46,5 +52,10 @@ def getWord(word):
    except:
       return 'Cannot find such word! Check spelling.'
    
-   return (word, PoS, definition, example)
-
+   wordObject = {
+      "word": word,
+      "PoS": PoS,
+      "definition": definition,
+      "example": example
+   }
+   return wordObject
