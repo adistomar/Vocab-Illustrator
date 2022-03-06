@@ -13,9 +13,9 @@ from preprocessor import Preprocessor
 
 class FilePaths:
     """Filenames and paths to data."""
-    fn_char_list = '../model/charList.txt'
-    fn_summary = '../model/summary.json'
-    fn_corpus = '../data/corpus.txt'
+    fn_char_list = 'charList.txt'
+    fn_summary = 'summary.json'
+    fn_corpus = 'corpus.txt'
 
 
 def get_img_height() -> int:
@@ -124,7 +124,7 @@ def validate(model: Model, loader: DataLoaderIAM, line_mode: bool) -> Tuple[floa
     return char_error_rate, word_accuracy
 
 
-def infer(model: Model, fn_img: Path) -> None:
+def infer(model: Model, fn_img: Path):
     """Recognizes text in image provided by file path."""
     img = cv2.imread(fn_img, cv2.IMREAD_GRAYSCALE)
     assert img is not None
@@ -139,7 +139,7 @@ def infer(model: Model, fn_img: Path) -> None:
     return recognized[0]
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(address) -> argparse.Namespace:
     """Parses arguments from the command line."""
     parser = argparse.ArgumentParser()
 
@@ -149,18 +149,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--data_dir', help='Directory containing IAM dataset.', type=Path, required=False)
     parser.add_argument('--fast', help='Load samples from LMDB.', action='store_true')
     parser.add_argument('--line_mode', help='Train to read text lines instead of single words.', action='store_true')
-    parser.add_argument('--img_file', help='Image used for inference.', type=Path, default='../data/word.png')
+    parser.add_argument('--img_file', help='Image used for inference.', type=Path, default=f'{address}.png')
     parser.add_argument('--early_stopping', help='Early stopping epochs.', type=int, default=25)
     parser.add_argument('--dump', help='Dump output of NN to CSV file(s).', action='store_true')
 
     return parser.parse_args()
 
 
-def main():
+def main(address):
     """Main function."""
 
     # parse arguments and set CTC decoder
-    args = parse_args()
+    args = parse_args(address)
     decoder_mapping = {'bestpath': DecoderType.BestPath,
                        'beamsearch': DecoderType.BeamSearch,
                        'wordbeamsearch': DecoderType.WordBeamSearch}

@@ -1,7 +1,7 @@
 #!flask/bin/python
 from flask import Flask, jsonify
 from main import *
-import SimpleHTR
+import mainn
 
 app = Flask(__name__)
 
@@ -17,9 +17,9 @@ def getRandomWord():
 def getWordFromInput(word):
     return jsonify(getWord(word))
 
-@app.route('/getWordFromImg/<address>', methods=['POST'])
-def getWordFromImg(address):
-   return jsonify(getWord(SimpleHTR.src.main.main(address)))
+@app.route('/getWordFromImg', methods=['GET'])
+def getWordFromImg():
+   return getWord(mainn.main("word"))
 
 if __name__ == '__main__':
    app.run(debug=True)
